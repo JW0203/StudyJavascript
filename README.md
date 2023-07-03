@@ -1,3 +1,3 @@
 # StudyJavascript
 
-Start 2023-07-03
+Start from 2023-07-03
