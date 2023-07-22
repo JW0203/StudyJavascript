@@ -52,27 +52,31 @@ console.log(`넓이 : ${circle.calculateArea()}`);
 console.log("-- print Person info --")
 
 class Person{
-    constructor(name, age, weight, university){
+    constructor(name, age, weight, isUniversity){
         this.name = name;
         this.age = age;
         this.weight = weight;
-        this.university =  university;
-        this.personInfo = [name, age, weight, university];
+        this.isUniversity = isUniversity;
+        // this.personInfo = [name, age, weight, university];
+    }
+
+    toArray() {
+        return [this.name, this.age, this.weight, this.university]
+    }
+
+    abcd() {
+        const personInfo = this.toArray();
     }
 
     printPersonInfo(){
-        let univ = false 
-        if (this.university === "university"){
-            univ = true;
-        }
         console.log(`이름 : ${this.name}`)
         console.log(`나이 : ${this.age}`)
-        console.log(`대학생인가요? : ${univ}`)
+        console.log(`대학생인가요? : ${this.isUniversity}`)
         console.log(`몸무게 :  ${this.weight}`)
     }
 }
 
-const iu = new Person("아이유", 30, 40.5, "university");
+const iu = new Person("아이유", 30, 40.5, true);
 iu.printPersonInfo()
 
 
@@ -81,22 +85,22 @@ console.log("-- print exam score --")
 // 객체를 입력으로 사용할때 클래스에서 아래와 같이 객체의 키값을 입력해서
 // 쉽게 받기 가능
 class Student{
-    constructor({name, krScore, enScore}){
+    constructor({name, kreanScore, englishScore}){
         this.name = name;
-        this.krScore = krScore;
-        this.enScore = enScore;
+        this.kreanScore = kreanScore;
+        this.englishScore = englishScore;
     }
 
     printScore(){
         console.log(`이름 : ${this.name}`)
-        console.log(`국어 : ${this.krScore}`)
-        console.log(`영어 : ${this.enScore}`)
+        console.log(`국어 : ${this.kreanScore}`)
+        console.log(`영어 : ${this.englishScore}`)
     }
 }
 
-const studentsArray = [{name: "제이슨", krScore: 87, enScore: 92},
-    {name: "레이첼", krScore: 82, enScore: 92},
-    {name: "리사", krScore: 92, enScore: 88}]
+const studentsArray = [{name: "제이슨", kreanScore: 87, englishScore: 92},
+    {name: "레이첼", kreanScore: 82, englishScore: 92},
+    {name: "리사", kreanScore: 92, englishScore: 88}]
 
 studentsArray.forEach((value, index, iter) => {
     let student = value;
@@ -105,23 +109,44 @@ studentsArray.forEach((value, index, iter) => {
     console.log("\n")
 });
 
+//다른방식
+const studentsArrayNew = [
+    new Student({
+        name: "제이슨",kreanScore: 87, englishScore: 92
+    }),
+    new Student({
+        name: "레이첼", kreanScore: 82, englishScore: 92
+    }),
+    new Student({
+        name: "리사", kreanScore: 92, englishScore: 88
+    })
+    
+]
+
+studentsArrayNew.forEach((value) => {
+    value.printScore();
+    console.log("\n")
+});
+
 
 console.log("-- Bank account --")
 
 class Account{
     
-    constructor(accountNumber, accountHolder, balance = 0){
+    constructor(accountNumber, accountHolder){
         this.accountHolder = accountHolder;
         this.accountNumber = accountNumber;
-        this.balance = balance;
+        this.balance = 0;
         // this.money = money
     }
 
+    // 잔고 : 1000원
+    // 5000원을 인출
     withdraw(money){
         // this.money = money
-        if (this.balance === 0){
+        if (this.balance < money){
             return console.log("Your balnce is 0.");
-        }else{
+        } else{
             return this.balance -= money;
         }
     }
